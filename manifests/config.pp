@@ -17,7 +17,7 @@ class mysql::config
     $mysql::config_file:
       ensure => $mysql::config_ensure,
       path   => $mysql::config_file,
-      mode   => '0644';
+      mode   => '0774';
     '/etc/my.cnf.d':
       ensure  => 'directory',
       mode    => '0755',
