@@ -21,9 +21,9 @@ class mysql(
     default => $version,
   }
   $version_release = split($use_version, Regexp['[.]'])[0,2].join('.')
-  $yumrepo_url = 'http://repo.mysql.com/yum'
-  $baseurl = "${yumrepo_url}/mysql-${version_release}-community/el/${::operatingsystemmajrelease}/${::architecture}/"
-  $gpgkey = "${yumrepo_url}/RPM-GPG-KEY-mysql"
+  $repo_url = 'http://repo.mysql.com'
+  $baseurl = "${repo_url}/yum/mysql-${version_release}-community/el/${::operatingsystemmajrelease}/${::architecture}/"
+  $gpgkey = "${repo_url}/RPM-GPG-KEY-mysql"
   $server_package_name = "mysql-community-server-${use_version}"
   $client_package_name = "mysql-community-client-${use_version}"
   $common_package_name = "mysql-community-common-${use_version}"
