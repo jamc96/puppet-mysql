@@ -1,0 +1,11 @@
+---
+mysql::version: '5.7.19'
+mysql::package_ensure: present
+mysql::config_ensure: present
+mysql::service_ensure: running
+mysql::config_file: '/etc/my.cnf'
+mysql::service_name: mysqld
+mysql::directories: 
+  - '/etc/my.cnf.d'
+  - '/mysqldb'
+  - '/mysqldb/secure'
