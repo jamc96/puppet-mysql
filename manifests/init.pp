@@ -16,14 +16,30 @@ class mysql(
   Array $directories,
   String $repository,
   String $gpgkey,
+  String $package_name,
 ) {
   # global variables
-  $version_release = split($version, Regexp['[.]'])[0,2].join('.')
-  $baseurl = "${repository}/yum/mysql-${version_release}-community/el/${::operatingsystemmajrelease}/${::architecture}/"
-  $server_package_name = "mysql-community-server-${version}"
-  $client_package_name = "mysql-community-client-${version}"
-  $common_package_name = "mysql-community-common-${version}"
-  $libs_package_name = "mysql-community-libs-${version}"
+  case $package_name {
+    'mariadb': {
+      $os_name = $facts['operatingsystem'] ? {
+        'RedHat' => 'rhel',
+        default  => 'centos',
+      }
+      $baseurl = "https://yum.mariadb.org/${version}/${os_name}/${::operatingsystemmajrelease}/${::architecture}/"
+      $server_package = "MariaDB-server-${version}"
+      $client_package = "MariaDB-client-${version}"
+      $common_package = "MariaDB-common-${version}"
+      $compat_libs_package = "MariaDB-compat-${version}"
+    }
+    default: {
+      $version_release = split($version, Regexp['[.]'])[0,2].join('.')
+      $baseurl = "${repository}/yum/mysql-${version_release}-community/el/${::operatingsystemmajrelease}/${::architecture}/"
+      $server_package = "mysql-community-server-${version}"
+      $client_package = "mysql-community-client-${version}"
+      $common_package = "mysql-community-common-${version}"
+      $compat_libs_package = "mysql-community-libs-${version}"
+    }
+  }
   # module containment
   contain ::mysql::install
   contain ::mysql::config

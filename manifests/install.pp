@@ -25,10 +25,10 @@ class mysql::install {
   package {
     $::mysql::common_package_name:
       require => Yumrepo['mysql-comunity'];
-    $::mysql::libs_package_name:
+    $::mysql::compat_libs_package:
       require => Package[$::mysql::common_package_name];
     $::mysql::client_package_name:
-      require => Package[$::mysql::libs_package_name];
+      require => Package[$::mysql::compat_libs_package];
     $::mysql::server_package_name:
       require => Package[$::mysql::client_package_name];
   }
