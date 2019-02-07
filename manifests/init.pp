@@ -14,17 +14,16 @@ class mysql(
   String $config_file,
   String $service_name,
   Array $directories,
+  String $repository,
+  String $gpgkey,
 ) {
   # global variables
   $version_release = split($version, Regexp['[.]'])[0,2].join('.')
-  $repo_url = 'http://repo.mysql.com'
-  $baseurl = "${repo_url}/yum/mysql-${version_release}-community/el/${::operatingsystemmajrelease}/${::architecture}/"
-  $gpgkey = "${repo_url}/RPM-GPG-KEY-mysql"
+  $baseurl = "${repository}/yum/mysql-${version_release}-community/el/${::operatingsystemmajrelease}/${::architecture}/"
   $server_package_name = "mysql-community-server-${version}"
   $client_package_name = "mysql-community-client-${version}"
   $common_package_name = "mysql-community-common-${version}"
   $libs_package_name = "mysql-community-libs-${version}"
-
   # module containment
   contain ::mysql::install
   contain ::mysql::config

@@ -22,13 +22,13 @@ class mysql::install {
   }
   # Install all mysql packages
   package {
-    'mysql-community-common':
+    $::mysql::common_package_name:
       require => Yumrepo['mysql-comunity'];
-    'mysql-community-libs':
+    $::mysql::libs_package_name:
       require => Package[$::mysql::common_package_name];
-    'mysql-community-client':
+    $::mysql::client_package_name:
       require => Package[$::mysql::libs_package_name];
-    'mysql-community-server':
+    $::mysql::server_package_name:
       require => Package[$::mysql::client_package_name];
   }
 }
