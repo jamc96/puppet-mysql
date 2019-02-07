@@ -8,6 +8,7 @@
 #   include mysql::config
 class mysql::config
 {
+  # default parameters
   File {
     owner                   => 'mysql',
     group                   => 'mysql',

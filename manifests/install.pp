@@ -7,7 +7,7 @@
 # @example
 #   include mysql::install
 class mysql::install {
-  # Install mysql repository
+  # install mysql repository
   yumrepo { 'mysql-comunity':
     ensure   => 'present',
     name     => 'mysql-comunity',
@@ -16,11 +16,12 @@ class mysql::install {
     gpgcheck => '1',
     gpgkey   => $mysql::gpgkey,
   }
-  File {
+  # default parameters
+  Package {
     ensure   => $mysql::package_ensure,
     provider => 'yum',
   }
-  # Install all mysql packages
+  # install packages
   package {
     $::mysql::common_package_name:
       require => Yumrepo['mysql-comunity'];
