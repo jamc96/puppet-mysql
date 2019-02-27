@@ -40,7 +40,7 @@ class mysql(
         undef => '5.7.19',
         default => $version,
       }
-      $version_release = $use_version.match(/^\d+?[.]\d+/).join('')
+      $version_release = split($use_version, Regexp['[.]'])[0,2].join('.')
       $repository = 'http://repo.mysql.com'
       $baseurl = "${repository}/yum/mysql-${version_release}-community/el/${::operatingsystemmajrelease}/${::architecture}/"
       $gpgkey = "${repository}/RPM-GPG-KEY-mysql"
