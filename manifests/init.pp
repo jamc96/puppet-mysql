@@ -22,24 +22,32 @@ class mysql(
         'RedHat' => 'rhel',
         default  => 'centos',
       }
+      $use_version = $version ? {
+        undef => '10.0.29',
+        default => $version,
+      }
       $repository = 'https://yum.mariadb.org'
-      $baseurl = "${repository}/${version}/${os_name}/${::operatingsystemmajrelease}/${::architecture}/"
+      $baseurl = "${repository}/${use_version}/${os_name}/${::operatingsystemmajrelease}/${::architecture}/"
       $gpgkey = "${repository}/RPM-GPG-KEY-MariaDB"
-      $server_package = "MariaDB-server-${version}"
-      $client_package = "MariaDB-client-${version}"
-      $common_package = "MariaDB-common-${version}"
-      $compat_libs_package = "MariaDB-compat-${version}"
+      $server_package = "MariaDB-server-${use_version}"
+      $client_package = "MariaDB-client-${use_version}"
+      $common_package = "MariaDB-common-${use_version}"
+      $compat_libs_package = "MariaDB-compat-${use_version}"
       $service_name = 'mysql'
     }
     default: {
-      $version_release = split($version, Regexp['[.]'])[0,2].join('.')
+      $use_version = $version ? {
+        undef => '5.7.19',
+        default => $version,
+      }
+      $version_release = $use_version.match(/^\d+?[.]\d+/)
       $repository = 'http://repo.mysql.com'
       $baseurl = "${repository}/yum/mysql-${version_release}-community/el/${::operatingsystemmajrelease}/${::architecture}/"
       $gpgkey = "${repository}/RPM-GPG-KEY-mysql"
-      $server_package = "mysql-community-server-${version}"
-      $client_package = "mysql-community-client-${version}"
-      $common_package = "mysql-community-common-${version}"
-      $compat_libs_package = "mysql-community-libs-${version}"
+      $server_package = "mysql-community-server-${use_version}"
+      $client_package = "mysql-community-client-${use_version}"
+      $common_package = "mysql-community-common-${use_version}"
+      $compat_libs_package = "mysql-community-libs-${use_version}"
       $service_name = 'mysqld'
     }
   }

@@ -1,5 +1,5 @@
 ---
-mysql::version: '5.7.19'
+mysql::version: ~
 mysql::package_ensure: present
 mysql::config_ensure: present
 mysql::service_ensure: running
