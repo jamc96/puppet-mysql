@@ -14,7 +14,6 @@ class mysql(
   String $config_file,
   String $service_name,
   Array $directories,
-  String $repository,
   String $package_name,
 ) {
   # global variables
