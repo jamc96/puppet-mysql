@@ -7,29 +7,10 @@
 # @example
 #   include mysql::install
 class mysql::install {
-  # install mysql repository
-  yumrepo { 'mysql-comunity':
-    ensure   => 'present',
-    name     => 'mysql-comunity',
-    baseurl  => $mysql::baseurl,
-    enabled  => '1',
-    gpgcheck => '1',
-    gpgkey   => $mysql::gpgkey,
-  }
-  # default parameters
-  Package {
-    ensure   => $mysql::package_ensure,
-    provider => 'yum',
-  }
-  # install packages
-  package {
-    $::mysql::common_package:
-      require => Yumrepo['mysql-comunity'];
-    $::mysql::compat_libs_package:
-      require => Package[$::mysql::common_package];
-    $::mysql::client_package:
-      require => Package[$::mysql::compat_libs_package];
-    $::mysql::server_package:
-      require => Package[$::mysql::client_package];
+  # install mysql version
+  if $mysql::package_name == 'mariadb' {
+    include ::mysql::mariadb
+  } else {
+    include ::mysql::community
   }
 }

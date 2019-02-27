@@ -18,6 +18,7 @@ class mysql(
   # global variables
   case $package_name {
     'mariadb': {
+      # default variables 
       $os_name = $facts['operatingsystem'] ? {
         'RedHat' => 'rhel',
         default  => 'centos',
@@ -26,13 +27,7 @@ class mysql(
         undef => '10.0.30',
         default => $version,
       }
-      $repository = 'https://yum.mariadb.org'
-      $baseurl = "${repository}/${use_version}/${os_name}/${::operatingsystemmajrelease}/${::architecture}/"
-      $gpgkey = "${repository}/RPM-GPG-KEY-MariaDB"
-      $server_package = "MariaDB-server-${use_version}"
-      $client_package = "MariaDB-client-${use_version}"
-      $common_package = "MariaDB-common-${use_version}"
-      $compat_libs_package = "MariaDB-compat-${use_version}"
+      $package_ensure =  "${use_version}-1.el${::operatingsystemmajrelease}.${os_name}"
       $service_name = 'mysql'
     }
     default: {
@@ -40,14 +35,7 @@ class mysql(
         undef => '5.7.19',
         default => $version,
       }
-      $version_release = split($use_version, Regexp['[.]'])[0,2].join('.')
-      $repository = 'http://repo.mysql.com'
-      $baseurl = "${repository}/yum/mysql-${version_release}-community/el/${::operatingsystemmajrelease}/${::architecture}/"
-      $gpgkey = "${repository}/RPM-GPG-KEY-mysql"
-      $server_package = "mysql-community-server-${use_version}"
-      $client_package = "mysql-community-client-${use_version}"
-      $common_package = "mysql-community-common-${use_version}"
-      $compat_libs_package = "mysql-community-libs-${use_version}"
+      $package_ensure =  "${use_version}-1.el${::operatingsystemmajrelease}"
       $service_name = 'mysqld'
     }
   }
