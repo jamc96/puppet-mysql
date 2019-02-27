@@ -12,7 +12,6 @@ class mysql(
   Enum['present', 'absent'] $config_ensure,
   Enum['running', 'stopped' ] $service_ensure,
   String $config_file,
-  String $service_name,
   Array $directories,
   String $package_name,
 ) {
@@ -30,6 +29,7 @@ class mysql(
       $client_package = "MariaDB-client-${version}"
       $common_package = "MariaDB-common-${version}"
       $compat_libs_package = "MariaDB-compat-${version}"
+      $service_name = 'mysql'
     }
     default: {
       $version_release = split($version, Regexp['[.]'])[0,2].join('.')
@@ -40,6 +40,7 @@ class mysql(
       $client_package = "mysql-community-client-${version}"
       $common_package = "mysql-community-common-${version}"
       $compat_libs_package = "mysql-community-libs-${version}"
+      $service_name = 'mysqld'
     }
   }
   # module containment
