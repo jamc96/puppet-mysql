@@ -10,7 +10,7 @@ class mysql(
   Optional[Pattern[/|^[.+_0-9:~-]+$/]] $version,
   Enum['present', 'absent'] $package_ensure,
   Enum['present', 'absent'] $config_ensure,
-  Enumer['running', 'stopped' ] $service_ensure,
+  Enum['running', 'stopped' ] $service_ensure,
   String $config_file,
   String $service_name,
   Array $directories,
