@@ -9,5 +9,3 @@ mysql::directories:
   - '/etc/my.cnf.d'
   - '/mysqldb'
   - '/mysqldb/secure'
-mysql::repository: 'http://repo.mysql.com'
-mysql::gpgkey: 'RPM-GPG-KEY-mysql'

@@ -15,7 +15,6 @@ class mysql(
   String $service_name,
   Array $directories,
   String $repository,
-  String $gpgkey,
   String $package_name,
 ) {
   # global variables
@@ -25,7 +24,9 @@ class mysql(
         'RedHat' => 'rhel',
         default  => 'centos',
       }
-      $baseurl = "https://yum.mariadb.org/${version}/${os_name}/${::operatingsystemmajrelease}/${::architecture}/"
+      $repository = 'https://yum.mariadb.org'
+      $baseurl = "${repository}/${version}/${os_name}/${::operatingsystemmajrelease}/${::architecture}/"
+      $gpgkey = "${repository}/RPM-GPG-KEY-MariaDB"
       $server_package = "MariaDB-server-${version}"
       $client_package = "MariaDB-client-${version}"
       $common_package = "MariaDB-common-${version}"
@@ -33,7 +34,9 @@ class mysql(
     }
     default: {
       $version_release = split($version, Regexp['[.]'])[0,2].join('.')
+      $repository = 'http://repo.mysql.com'
       $baseurl = "${repository}/yum/mysql-${version_release}-community/el/${::operatingsystemmajrelease}/${::architecture}/"
+      $gpgkey = "${repository}/RPM-GPG-KEY-mysql"
       $server_package = "mysql-community-server-${version}"
       $client_package = "mysql-community-client-${version}"
       $common_package = "mysql-community-common-${version}"
