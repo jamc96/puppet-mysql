@@ -1,5 +1,6 @@
 ---
 mysql::version: ~
+mysql::package_name: 'mysql'
 mysql::package_ensure: present
 mysql::config_ensure: present
 mysql::service_ensure: running
