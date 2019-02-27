@@ -23,7 +23,7 @@ class mysql(
         default  => 'centos',
       }
       $use_version = $version ? {
-        undef => '10.0.29',
+        undef => '10.0.30',
         default => $version,
       }
       $repository = 'https://yum.mariadb.org'
