@@ -6,8 +6,7 @@
 #
 # @example
 #   include mysql::config
-class mysql::config
-{
+class mysql::config inherits mysql {
   # default parameters
   File {
     owner                   => 'mysql',

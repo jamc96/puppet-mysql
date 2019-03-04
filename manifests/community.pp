@@ -4,7 +4,7 @@
 #
 # @example
 #   include mysql::community
-class mysql::community {
+class mysql::community inherits mysql {
   # default variables
   $version_release = split($mysql::use_version, Regexp['[.]'])[0,2].join('.')
   # install mysql repository

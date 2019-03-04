@@ -4,7 +4,7 @@
 #
 # @example
 #   include mysql::mariadb
-class mysql::mariadb {
+class mysql::mariadb inherits mysql {
   # install mysql repository
   yumrepo { 'mariadb':
     ensure   => 'present',

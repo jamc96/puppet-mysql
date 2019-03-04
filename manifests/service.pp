@@ -6,7 +6,7 @@
 #
 # @example
 #   include mysql::service
-class mysql::service {
+class mysql::service inherits mysql {
   # create mysql service
   service { $::mysql::service_name:
     ensure     => $::mysql::service_ensure,
